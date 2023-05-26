@@ -1,0 +1,12 @@
+#login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+#login {
+    width: 29rem;
+    height: 26rem;
+    border: 1px solid rgb(218, 214, 214);
+}
