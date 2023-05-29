@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../style/Login.css';
 import { auth, googleProvider } from '../firebaseConfig';
 import { signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
@@ -12,13 +12,17 @@ export default function Login() {
     const navigate = useNavigate();
     const [state, setState] = useState('login');
 
+    useEffect(() => {
+        console.log(auth?.currentUser);
+    }, []);
+
     async function signIn() {
         try {
             await signInWithEmailAndPassword(auth, email, password);
         } catch (err) {
             console.error(err);
         } finally {
-            navigate('/main');
+            navigate('/main'), { replace: true };
         }
     }
 
@@ -28,7 +32,7 @@ export default function Login() {
         } catch (err) {
             console.error(err);
         } finally {
-            navigate('/main');
+            navigate('/main'), { replace: true };
         }
     }
 
@@ -38,12 +42,13 @@ export default function Login() {
         } catch (err) {
             console.error(err);
         } finally {
-            navigate('/main');
+            navigate('/main'), { replace: true };
         }
     }
 
     return <main id='login-container'>
-        {state === 'login' ? <Signin setEmail={setEmail} setPassword={setPassword} signIn={signIn} signInWithGoogle={signInWithGoogle} setState={setState} /> :
+        {state === 'login' ? <Signin setEmail={setEmail} setPassword={setPassword} signIn={signIn} 
+        signInWithGoogle={signInWithGoogle} setState={setState} /> :
         <Create createAccount={createAccount} setState={setState} />}
     </main>;
 }
