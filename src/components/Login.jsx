@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import '../style/Login.css';
 import { auth, googleProvider } from '../firebaseConfig';
 import { signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
@@ -11,10 +11,6 @@ export default function Login() {
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
     const [state, setState] = useState('login');
-
-    useEffect(() => {
-        console.log(auth?.currentUser);
-    }, []);
 
     async function signIn() {
         try {

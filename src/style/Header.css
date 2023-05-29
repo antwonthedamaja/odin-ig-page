@@ -1,0 +1,31 @@
+header {
+    flex-grow: 1;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#header-logo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#header-logo > img {
+    width: 3rem;
+}
+
+#header-logo > div {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+nav {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+nav > img {
+    width: 2.5rem;
+}
