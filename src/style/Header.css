@@ -3,16 +3,21 @@ header {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    border-bottom: 2px solid rgb(250, 248, 248);
 }
 
 #header-logo {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    gap: .5rem;
 }
 
-#header-logo > img {
+#header-logo > img, nav > img {
     width: 3rem;
+}
+
+nav > img {
+    cursor: pointer;
 }
 
 #header-logo > div {
@@ -26,6 +31,13 @@ nav {
     align-items: center;
 }
 
-nav > img {
+#settings {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    cursor: pointer;
+}
+
+#settings > img {
     width: 2.5rem;
 }

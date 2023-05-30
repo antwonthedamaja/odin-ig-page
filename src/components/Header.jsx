@@ -26,8 +26,10 @@ export default function Header() {
         </div>
         <nav id='nav'>
             <img src={Home} />
-            <img src={auth.currentUser.photoURL} />
-            <div>{auth.currentUser.displayName}</div>
+            <div id='settings'>
+                <img src={auth.currentUser.photoURL} />
+                <div>{auth.currentUser.displayName}</div>
+            </div>
         </nav>
         {/* <button onClick={logOut}>Sign-out</button> */}
     </header>;
