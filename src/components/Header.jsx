@@ -1,13 +1,14 @@
 import React from 'react';
 // import { signOut } from 'firebase/auth';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import '../style/Header.css';
 import Logo from '../assets/logo.avif';
-import Home from '../assets/home.svg';
+import Home from '../assets/home-account.svg';
+import Add from '../assets/plus-thick.svg';
 import { auth } from '../firebaseConfig';
 
 export default function Header() {
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
     // async function logOut() {
     //     try {
@@ -25,8 +26,9 @@ export default function Header() {
             <div>Odingram</div>
         </div>
         <nav id='nav'>
-            <img src={Home} />
-            <div id='settings'>
+            <img src={Add} onClick={() => navigate('/main/post', { replace: true })} />
+            <img src={Home} onClick={() => navigate('/main', { replace: true })} />
+            <div onClick={() => navigate('/main/account', { replace: true })}>
                 <img src={auth.currentUser.photoURL} />
                 <div>{auth.currentUser.displayName}</div>
             </div>

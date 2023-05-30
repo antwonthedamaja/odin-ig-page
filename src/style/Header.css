@@ -21,23 +21,24 @@ nav > img {
 }
 
 #header-logo > div {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
     font-weight: 700;
 }
 
 nav {
     display: flex;
-    gap: 1rem;
+    gap: .75rem;
     align-items: center;
 }
 
-#settings {
+nav > div:last-child {
     display: flex;
-    gap: 1rem;
+    gap: .75rem;
     align-items: center;
     cursor: pointer;
+    margin-left: .5rem;
 }
 
-#settings > img {
+nav > div:last-child > img {
     width: 2.5rem;
 }
