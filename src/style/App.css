@@ -15,3 +15,7 @@ body {
     flex-direction: column;
 }
 
+main {
+    flex-grow: 1;
+    background-color: rgb(247, 247, 250);
+}

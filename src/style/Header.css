@@ -1,5 +1,5 @@
 header {
-    flex-grow: 1;
+    height: 4.5rem;
     display: flex;
     justify-content: space-around;
     align-items: center;

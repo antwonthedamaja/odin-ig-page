@@ -1,7 +1,6 @@
 import React from 'react';
 // import { signOut } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
-import '../style/Header.css';
 import Logo from '../assets/logo.avif';
 import Home from '../assets/home-account.svg';
 import Add from '../assets/plus-thick.svg';

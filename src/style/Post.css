@@ -1,4 +1,39 @@
 #create-post-container {
-    flex-grow: 27;
-    background-color: rgb(247, 247, 250);
+    display: flex;
+    justify-content: center;
+    padding: 5%;
+}
+
+#post-box {
+    width: 28%;
+    height: 70%;
+    border: 1px solid black;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+#upload-image-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(218, 217, 221);
+    height: 75%;
+    width: 75%;
+}
+
+.active {
+    border: 4px dashed rgb(218, 217, 221);
+    border-radius: 30px;
+}
+
+#file {
+    display: none;
+}
+
+#preview {
+    max-width: 100%;
 }
