@@ -2,7 +2,7 @@ import React from 'react';
 // import { signOut } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import Logo from '../assets/logo.avif';
-import Home from '../assets/home-account.svg';
+import Home from '../assets/home.svg';
 import Add from '../assets/plus-thick.svg';
 import { auth } from '../firebaseConfig';
 
@@ -25,8 +25,8 @@ export default function Header() {
             <div>Odingram</div>
         </div>
         <nav id='nav'>
-            <img src={Add} onClick={() => navigate('/main/post', { replace: true })} />
             <img src={Home} onClick={() => navigate('/main', { replace: true })} />
+            <img src={Add} onClick={() => navigate('/main/post', { replace: true })} />
             <div onClick={() => navigate('/main/account', { replace: true })}>
                 <img src={auth.currentUser.photoURL} />
                 <div>{auth.currentUser.displayName}</div>

@@ -21,15 +21,18 @@ export default function Post() {
             <div id='upload-image-container' className='inactive' onClick={clickInput}>
                 <output>Add image to post</output>
             </div>
-            <input ref={inputElement} onChange={uploadImage} id='file' type="file" accept="image/jpg, image/jpeg, image/png, image/webp" />
-            <textarea id='post-text'></textarea>
+            <input ref={inputElement} onChange={uploadImage} style={{display: 'none'}} 
+            type="file" accept="image/jpg, image/jpeg, image/png, image/webp" />
+            <textarea id='post-text' maxLength='300'></textarea>
+            <button disabled id='submit-post'>Submit?</button>
         </div>
     </main> : <main id='create-post-container'>
         <div id='post-box'>
             <div id='upload-image-container' className='active' onClick={clickInput}>
                 <img id="preview" src={image} />
             </div>
-            <input ref={inputElement} onChange={uploadImage} id='file' type="file" accept="image/jpg, image/jpeg, image/png, image/webp" />
+            <input ref={inputElement} onChange={uploadImage} style={{display: 'none'}} 
+            type="file" accept="image/jpg, image/jpeg, image/png, image/webp" />
             <textarea id='post-text' maxLength='300'></textarea>
             <button id='submit-post'>Submit?</button>
         </div>
