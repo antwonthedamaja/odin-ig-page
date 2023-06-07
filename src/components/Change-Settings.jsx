@@ -4,9 +4,8 @@ import { updateProfile } from 'firebase/auth';
 import { storage } from '../firebaseConfig';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
-export default function Post() {
+export default function ChangeSettings() {
     const [image, setImage] = useState(auth.currentUser.photoURL);
-    const [type, setType] = useState('');
     const [uploading, setUploading] = useState(false);
     const [name, setName] = useState('');
     const inputImage = useRef();
@@ -19,7 +18,6 @@ export default function Post() {
         if (e.target.files[0]) {
             const newPicture = URL.createObjectURL(e.target.files[0]);
             setImage(newPicture);
-            setType(e.target.files[0].type);
         }
     }
 
@@ -27,11 +25,9 @@ export default function Post() {
         if (image != auth.currentUser.photoURL) {
             setUploading(true);
             try {
-                const response = await fetch(image);
-                const data = await response.blob();
+                const blob = await fetch(image).then(r => r.blob());
                 const pfpRef = ref(storage, `images/pfps/${auth.currentUser.uid}`);
-                const metadata = { contentType: type };
-                const pfpUpload = await uploadBytes(pfpRef, data, metadata);
+                const pfpUpload = await uploadBytes(pfpRef, blob);
                 const newPfp = await getDownloadURL(pfpUpload.ref);
                 await updateProfile(auth.currentUser, {
                     displayName: name || auth.currentUser.displayName, photoURL: newPfp
@@ -39,7 +35,7 @@ export default function Post() {
             } catch (err) {
                 return console.error(err);
             }
-            alert('success');
+            alert('Profile details changed successfully.');
             setUploading(false);
         } else {
             setUploading(true);
@@ -50,7 +46,7 @@ export default function Post() {
             } catch (err) {
                 console.error(err);
             }
-            alert('name changed');
+            alert('Name change successful');
             setUploading(false);
         }
     }

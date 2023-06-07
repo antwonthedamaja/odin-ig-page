@@ -2,7 +2,7 @@
 import React from 'react';
 import Logo from '../assets/logo.avif';
 
-export default function Create(props) {
+export default function CreateAccount(props) {
     return <div id="login">
         <div id='logo-text'>Odingram</div>
         <img id='logo' src={Logo} />

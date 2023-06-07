@@ -40,5 +40,6 @@ nav > div:last-child {
 }
 
 nav > div:last-child > img {
-    width: 2.5rem;
+    max-width: 2.5rem;
+    max-height: 2.5rem;
 }

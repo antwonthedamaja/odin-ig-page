@@ -7,17 +7,18 @@
 #account-settings {
     width: 37.5rem;
     height: 22.5rem;
-    border: 1px solid black;
+    border: 1px solid rgb(186, 184, 184);
     background-color: white;
     display: flex;
     flex-direction: column;
     padding: 4rem;
     justify-content: space-between;
+    border-radius: 10px;
 }
 
 #pfp {
-    height: 8.5rem;
-    width: 8.5rem;
+    max-height: 8.5rem;
+    max-width: 8.5rem;
     cursor: pointer;
 }
 
