@@ -9,7 +9,8 @@ export default function CreateAccount(props) {
         <input type='email' placeholder='Email' onChange={(e) => props.setEmail(e.target.value)} />
         <input type='password' placeholder='Password' onChange={(e) => props.setPassword(e.target.value)} />
         <input type='text' placeholder='Display name' onChange={(e) => props.setDisplayName(e.target.value)} maxLength="20" />
-        <button id="create-button" onClick={props.createAccount}>Create Account</button>
+        <button id="create-button" onClick={props.createAccount} 
+        disabled={props.loading}>Create Account</button>
         <a href="#" onClick={() => props.setState('login')}>{'Go back to login'}</a>
     </div>;
 }

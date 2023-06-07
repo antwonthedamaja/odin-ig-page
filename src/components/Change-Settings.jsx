@@ -33,10 +33,11 @@ export default function ChangeSettings() {
                     displayName: name || auth.currentUser.displayName, photoURL: newPfp
                 });
             } catch (err) {
-                return console.error(err);
+                console.error(err);
+            } finally {
+                setUploading(false);
             }
             alert('Profile details changed successfully.');
-            setUploading(false);
         } else {
             setUploading(true);
             try {
@@ -45,9 +46,10 @@ export default function ChangeSettings() {
                 });
             } catch (err) {
                 console.error(err);
+            } finally {
+                setUploading(false);
             }
             alert('Name change successful');
-            setUploading(false);
         }
     }
 

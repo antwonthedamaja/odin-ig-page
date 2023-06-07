@@ -39,10 +39,12 @@ export default function CreatePost() {
                 createdAt: serverTimestamp()
             });
         } catch (err) {
-            return console.error(err);
+            console.error(err);
+        } finally {
+            setLoading(false);
         }
         alert('Post submitted');
-        navigate('/main');
+        navigate('/main'), { replace: true };
     }
 
     function buttonToggle() {
