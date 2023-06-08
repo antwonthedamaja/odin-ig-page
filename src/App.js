@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './components/Login';
-import Main from './components/Main';
+import Router from './components/Router';
 import './style/App.css';
 import './style/Settings.css';
 import './style/Post.css';
@@ -15,7 +15,7 @@ export default function App() {
         <BrowserRouter>
             <Routes>
                 <Route path="/login" element={<Login />} />
-                <Route path="/main/*" element={<Main />} />
+                <Route path="/main/*" element={<Router />} />
                 <Route index element={<Navigate to="/login" />} />
             </Routes>
         </BrowserRouter>
