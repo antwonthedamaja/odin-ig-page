@@ -1,7 +1,8 @@
 import React, { useState, useRef } from 'react';
 import { auth } from '../firebaseConfig';
 import { updateProfile } from 'firebase/auth';
-import { storage } from '../firebaseConfig';
+import { storage, db } from '../firebaseConfig';
+import { doc, setDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
 export default function ChangeSettings() {
@@ -32,6 +33,10 @@ export default function ChangeSettings() {
                 await updateProfile(auth.currentUser, {
                     displayName: name || auth.currentUser.displayName, photoURL: newPfp
                 });
+                const nameRef = doc(db, 'usernames', auth.currentUser.uid);
+                await setDoc(nameRef, {
+                    name: name || auth.currentUser.displayName
+                });
             } catch (err) {
                 console.error(err);
             } finally {
@@ -43,6 +48,10 @@ export default function ChangeSettings() {
             try {
                 await updateProfile(auth.currentUser, {
                     displayName: name || auth.currentUser.displayName, photoURL: image
+                });
+                const nameRef = doc(db, 'usernames', auth.currentUser.uid);
+                await setDoc(nameRef, {
+                    name: name || auth.currentUser.displayName
                 });
             } catch (err) {
                 console.error(err);

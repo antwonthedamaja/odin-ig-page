@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { auth, googleProvider } from '../firebaseConfig';
-import { signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword, 
-    updateProfile } from 'firebase/auth';
+import { signInWithPopup, signInWithEmailAndPassword, 
+createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { doc, setDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import Signin from './Signin';
 import Create from './Create-Account';
 import BlankPic from '../assets/blank-profile-picture.webp';
+import { db } from '../firebaseConfig';
 
 export default function Login() {
     const [email, setEmail] = useState('');
@@ -46,6 +48,10 @@ export default function Login() {
                 await createUserWithEmailAndPassword(auth, email, password);
                 await updateProfile(auth.currentUser, {
                     displayName: displayName, photoURL: BlankPic
+                });
+                const nameRef = doc(db, 'usernames', auth.currentUser.uid);
+                await setDoc(nameRef, {
+                    name: displayName
                 });
             } catch (err) {
                 console.error(err);

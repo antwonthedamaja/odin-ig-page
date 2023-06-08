@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { storage, db } from '../firebaseConfig';
+import { storage, db, auth } from '../firebaseConfig';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { v1 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
@@ -35,7 +35,8 @@ export default function CreatePost() {
             await setDoc(postRef, {
                 text: text,
                 imageURL: newPostImg,
-                createdAt: serverTimestamp()
+                createdAt: serverTimestamp(),
+                createdBy: auth.currentUser.uid
             });
         } catch (err) {
             console.error(err);
@@ -55,7 +56,7 @@ export default function CreatePost() {
             type="file" accept="image/jpg, image/jpeg, image/png, image/webp" />
             <textarea id='post-text' maxLength='300' onChange={(e) => setText(e.target.value)}></textarea>
             <button disabled={!image || loading} id='submit-post'
-            onClick={submitPost}>Submit?</button>;
+            onClick={submitPost}>Submit?</button>
         </div>
     </main>;
 }
