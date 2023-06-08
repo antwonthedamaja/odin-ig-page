@@ -1,10 +1,9 @@
 import React, { useState, useRef } from 'react';
-import { storage } from '../firebaseConfig';
+import { storage, db } from '../firebaseConfig';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { v1 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
 import { setDoc, serverTimestamp, doc } from 'firebase/firestore';
-import { db } from '../firebaseConfig';
 
 export default function CreatePost() {
     const [loading, setLoading] = useState(false);
@@ -47,16 +46,6 @@ export default function CreatePost() {
         navigate('/main'), { replace: true };
     }
 
-    function buttonToggle() {
-        if (!image || loading) {
-            return <button disabled={true} id='submit-post'
-            onClick={submitPost}>Submit?</button>;
-        } else {
-            return <button disabled={false} id='submit-post'
-            onClick={submitPost}>Submit?</button>;
-        }
-    }
-
     return <main id='create-post-container'>
         <div id='post-box'>
             <div id='upload-image-container' className={image ? '' : 'inactive'} onClick={clickInput}>
@@ -65,7 +54,8 @@ export default function CreatePost() {
             <input ref={inputElement} onChange={uploadImage} style={{display: 'none'}} 
             type="file" accept="image/jpg, image/jpeg, image/png, image/webp" />
             <textarea id='post-text' maxLength='300' onChange={(e) => setText(e.target.value)}></textarea>
-            {buttonToggle()}
+            <button disabled={!image || loading} id='submit-post'
+            onClick={submitPost}>Submit?</button>;
         </div>
     </main>;
 }
