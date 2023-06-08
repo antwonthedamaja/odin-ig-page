@@ -1,19 +1,23 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
+import Feed from './Feed';
 
-export default function Feed() {
+export default function Main() {
+    const [data, setData] = useState();
 
-    async function getFeed() {
+    useEffect(async () => {
         try {
             const feedRef = collection(db, 'posts');
-            await getDocs(feedRef);
+            const response = await getDocs(feedRef);
+            console.log(response);
+            setData(response);
         } catch (err) {
             console.error(err);
         }
-    }
+    }, []);
 
-    return <main id='feed-container'>
-        
-    </main>;
+    if (data) {
+        return <Feed data={data} />;
+    }
 }
