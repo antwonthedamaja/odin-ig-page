@@ -2,13 +2,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 4rem 0;
-    gap: 4rem;
+    padding: 3rem 0;
+    gap: 3rem;
 }
 
 .post {
     width: 33rem;
-    min-height: 30rem;
+    min-height: 28rem;
     border: 1px solid rgb(186, 184, 184);
     border-radius: 15px;
     background-color: white;
@@ -22,6 +22,7 @@
     height: 20rem;
     display: flex;
     justify-content: center;
+    border-bottom: 1px solid black;
 }
 
 .img-container > img {
@@ -31,12 +32,44 @@
 
 .name-container {
     display: flex;
+    align-items: center;
     gap: .75rem;
     border-bottom: 1px solid black;
-    padding: 1rem 1.5rem .5rem 1.5rem;
+    padding: 0 1.75rem;
     width: 100%;
+    height: 3.5rem;
+}
+
+.name-container > img {
+    max-height: 1.75rem;
+    max-width: 1.75rem;
+    border-radius: 50%;
 }
 
 .name-container > span:first-child {
     font-weight: 700;
+}
+
+.description {
+    padding: 1rem;
+    font-size: .875rem;
+}
+
+.replies > input {
+    margin-bottom: 1rem;
+}
+
+.replies {
+    padding: 0 1rem;
+}
+
+.reply-button {
+    align-self: center;
+    padding-bottom: 1rem;
+    color: blue;
+    font-size: .875rem;
+}
+
+.open-replies {
+    color: purple;
 }

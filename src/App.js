@@ -8,7 +8,7 @@ import './style/Post.css';
 import './style/Login.css';
 import './style/Header.css';
 import './style/Content.css';
-import './style/Feed.css';
+import './style/Main.css';
 
 export default function App() {
     return (

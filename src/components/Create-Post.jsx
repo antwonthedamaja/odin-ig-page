@@ -36,7 +36,8 @@ export default function CreatePost() {
                 text: text,
                 imageURL: newPostImg,
                 createdAt: serverTimestamp(),
-                createdBy: auth.currentUser.uid
+                createdBy: auth.currentUser.uid,
+                pfpURL: auth.currentUser.photoURL
             });
         } catch (err) {
             console.error(err);
