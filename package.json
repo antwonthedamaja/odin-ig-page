@@ -45,7 +45,6 @@
     "eslint-config-google": "^0.14.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-react": "^7.32.2",
-    "gh-pages": "^5.0.0",
-    "styled-components": "^6.0.0-rc.2"
+    "gh-pages": "^5.0.0"
   }
 }

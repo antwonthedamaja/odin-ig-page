@@ -1,11 +1,11 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import { db, auth } from '../firebaseConfig';
-import { doc, setDoc, orderBy, query, serverTimestamp} from 'firebase/firestore';
+import { doc, setDoc, serverTimestamp} from 'firebase/firestore';
 import { v1 } from 'uuid';
+import Reply from './Reply';
 
-export default function Post(props) {
+export default function Posts(props) {
     const [state, setState] = useState(false);
     const [loading, setLoading] = useState(false);
     const [reply, setReply] = useState('');
@@ -37,22 +37,19 @@ export default function Post(props) {
             <span>{props.fields.createdAt.timestampValue.slice(0, 10)}</span>
         </div>
         <div className='img-container'>
-            <img src={props.fields.imageURL.stringValue} />
+            <div className="white-mask"><img src={props.fields.imageURL.stringValue} /></div>
         </div>
         <div className='description'><b>{props.fields.createdBy.stringValue + ' '}</b>{props.fields.text.stringValue}</div>
         {state ? <>
             <div className='replies'>
                 <div className='post-reply-container'>
                     <img src={props.fields.pfpURL.stringValue} />
-                    <input type='text' placeholder='Comment' maxLength='300' onChange={(e) => setReply(e.target.value)} />
+                    <input type='text' placeholder='Comment' maxLength='250' onChange={(e) => setReply(e.target.value)} />
                     <button disabled={loading} onClick={submitReply}>Post</button>
                 </div>
-                <div className='reply-container'>
-                    {props.replies.map(reply => {
-                        const replyFields = reply._document.data.value.mapValue.fields;
-                        return <div key={reply.id}>{replyFields.createdBy.stringValue + ': ' + replyFields.reply.stringValue}</div>;
-                    })}
-                </div>
+                {props.replies.map(reply => {
+                    return <Reply key={reply.id} fields={reply._document.data.value.mapValue.fields} />;
+                })}
             </div>
             <div className='reply-button open-replies' onClick={() => setState(false)}>[<u>Hide Replies?</u>]</div>
         </> :

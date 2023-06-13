@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { collection, getDoc, getDocs, doc, orderBy, query} from 'firebase/firestore';
 import { db } from '../firebaseConfig';
-import Post from './Posts';
+import Posts from './Posts';
 
 export default function Main() {
     const [data, setData] = useState();
@@ -21,10 +21,13 @@ export default function Main() {
                     const sortedSubColRef = query(subColRef, orderBy('createdAt', 'desc'));
                     const replyResponse = await getDocs(sortedSubColRef);
                     document._document.replies = replyResponse.docs;
-                    for await (const reply of document._document.replies) {
-                        const replyNameRef = doc(db, 'usernames', reply._document.data.value.mapValue.fields.createdBy.stringValue);
-                        const replyName = await getDoc(replyNameRef);
-                        reply._document.data.value.mapValue.fields.createdBy.stringValue = replyName._document.data.value.mapValue.fields.name.stringValue;
+                    if (document._document.replies.length > 0) {
+                        for await (const reply of document._document.replies) {
+                            const replyNameRef = doc(db, 'usernames', reply._document.data.value.mapValue.fields.createdBy.stringValue);
+                            const replyName = await getDoc(replyNameRef);
+                            reply._document.data.value.mapValue.fields.createdByDisplayName = 
+                            replyName._document.data.value.mapValue.fields.name.stringValue;
+                        }
                     }
                 }
                 setData(response.docs);
@@ -32,7 +35,9 @@ export default function Main() {
                 console.error(err);
             }
         }
+
         getData();
+
     }, []);
 
     if (data) {
@@ -40,7 +45,7 @@ export default function Main() {
             {data.map(doc => {
                 const fields = doc._document.data.value.mapValue.fields;
                 const replies = doc._document.replies;
-                return <Post fields={fields} replies={replies} key={doc.id} id={doc.id} />;
+                return <Posts fields={fields} replies={replies} key={doc.id} id={doc.id} />;
         })}
         </main>;
     }
