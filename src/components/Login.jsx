@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { auth, googleProvider } from '../firebaseConfig';
 import { signInWithPopup, signInWithEmailAndPassword, 
-createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+createUserWithEmailAndPassword, updateProfile, getAdditionalUserInfo } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import Signin from './Signin';
@@ -32,7 +32,14 @@ export default function Login() {
     async function signInWithGoogle() {
         setLoading(true);
         try {
-            await signInWithPopup(auth, googleProvider);
+            const result = await signInWithPopup(auth, googleProvider);
+            const details = getAdditionalUserInfo(result);
+            if (details.isNewUser) {
+                const nameRef = doc(db, 'usernames', auth.currentUser.uid);
+                await setDoc(nameRef, {
+                    name: auth.currentUser.displayName
+                });
+            }
         } catch (err) {
             console.error(err);
         } finally {

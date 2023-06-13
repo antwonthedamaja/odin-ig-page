@@ -4,7 +4,7 @@ import Login from './components/Login';
 import Router from './components/Router';
 import './style/App.css';
 import './style/Settings.css';
-import './style/Post.css';
+import './style/Create-Post.css';
 import './style/Login.css';
 import './style/Header.css';
 import './style/Content.css';

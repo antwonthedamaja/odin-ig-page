@@ -49,13 +49,13 @@ export default function CreatePost() {
     }
 
     return <main id='create-post-container'>
-        <div id='post-box'>
+        <div id='create-post-box'>
             <div id='upload-image-container' className={image ? '' : 'inactive'} onClick={clickInput}>
                 {!image ? <output>Add image to post</output> : <img id='preview' src={image} />}
             </div>
             <input ref={inputElement} onChange={uploadImage} style={{display: 'none'}} 
             type="file" accept="image/jpg, image/jpeg, image/png, image/webp" />
-            <textarea id='post-text' maxLength='300' onChange={(e) => setText(e.target.value)}></textarea>
+            <textarea id='create-post-text' maxLength='300' onChange={(e) => setText(e.target.value)}></textarea>
             <button disabled={!image || loading} id='submit-post'
             onClick={submitPost}>Submit?</button>
         </div>
