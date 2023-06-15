@@ -7,7 +7,7 @@ import Reply from './Reply';
 import { useNavigate } from 'react-router-dom';
 
 export default function Posts(props) {
-    const [state, setState] = useState(false);
+    const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
     const [reply, setReply] = useState('');
     const navigate = useNavigate();
@@ -62,7 +62,7 @@ export default function Posts(props) {
             <span className='date'>{' ' + props.fields.createdAt.timestampValue.slice(0, 10)}</span>
         </div>
 
-        {state ? <>
+        {open ? <>
             <div className='replies'>
                 {props.replies.map(reply => {
                     return <Reply key={reply.id} fields={reply._document.data.value.mapValue.fields} docid={props.id}
@@ -74,7 +74,7 @@ export default function Posts(props) {
                 <input type='text' placeholder='Comment' maxLength='250' onChange={(e) => setReply(e.target.value)} />
                 <button disabled={loading} onClick={submitReply}>Post</button>
             </div>
-            <div className='reply-button open-replies' onClick={() => setState(false)}>[<u>Hide replies?</u>]</div>
+            <div className='reply-button open-replies' onClick={() => setOpen(false)}>[<u>Hide replies?</u>]</div>
         </> : <>
             <div className='replies'>
                 {props.replies.slice(0, 3).map(reply => {
@@ -82,7 +82,7 @@ export default function Posts(props) {
                     uid={reply._document.data.value.mapValue.fields.createdBy.stringValue} replyid={reply.id} />;
                 })}
             </div>
-            <div className='reply-button' onClick={() => setState(true)}>[<u>Show more replies?</u>]</div>
+            <div className='reply-button' onClick={() => setOpen(true)}>[<u>Show more?</u>]</div>
         </>}
     </div>;
 }

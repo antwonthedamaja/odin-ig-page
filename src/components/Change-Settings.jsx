@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { auth } from '../firebaseConfig';
-import { updateProfile } from 'firebase/auth';
+import { updateProfile, signOut } from 'firebase/auth';
 import { storage, db } from '../firebaseConfig';
 import { doc, setDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
@@ -66,6 +66,11 @@ export default function ChangeSettings() {
         }
     }
 
+    function logout() {
+        signOut(auth);
+        navigate('/'), { replace: true };
+    }
+
     return <main id='account-settings-container'>
         <div id='account-settings'>
             <div id="settings-container">
@@ -83,6 +88,7 @@ export default function ChangeSettings() {
             </div>
             <div id="update-container">
                 <button id="update" disabled={uploading} onClick={updateAccount}>Update profile</button>
+                <button id="sign-out" onClick={logout}>Sign out</button>
             </div>
         </div>
     </main>;
