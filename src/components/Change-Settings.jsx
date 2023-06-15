@@ -4,12 +4,14 @@ import { updateProfile } from 'firebase/auth';
 import { storage, db } from '../firebaseConfig';
 import { doc, setDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { useNavigate } from 'react-router-dom';
 
 export default function ChangeSettings() {
     const [image, setImage] = useState(auth.currentUser.photoURL);
     const [uploading, setUploading] = useState(false);
     const [name, setName] = useState('');
     const inputImage = useRef();
+    const navigate = useNavigate();
 
     function clickInput() {
         inputImage.current.click();
@@ -43,7 +45,8 @@ export default function ChangeSettings() {
                 setUploading(false);
             }
             alert('Profile details changed successfully.');
-        } else {
+            navigate('/main'), { replace: true };
+        } else if (name) {
             setUploading(true);
             try {
                 await updateProfile(auth.currentUser, {
@@ -59,6 +62,7 @@ export default function ChangeSettings() {
                 setUploading(false);
             }
             alert('Name change successful');
+            navigate('/main'), { replace: true };
         }
     }
 

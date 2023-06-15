@@ -12,6 +12,7 @@ export default function Router() {
         <Routes>
             <Route path='/post' element={<CreatePost />} />
             <Route path='/account' element={<ChangeSettings />} />
+            <Route path="/redirect" element={<Navigate to="/main/" />} />
             <Route index element={<Main />} />
         </Routes>
     </> :

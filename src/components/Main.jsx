@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
-import { collection, getDoc, getDocs, doc, orderBy, query} from 'firebase/firestore';
+import { collection, getDoc, getDocs, doc, orderBy, query } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
 import Posts from './Posts';
 
@@ -11,8 +12,8 @@ export default function Main() {
             try {
                 const feedRef = collection(db, 'posts');
                 const sortedFeedRef = query(feedRef, orderBy('createdAt', 'desc'));
-                const response = await getDocs(sortedFeedRef);
-                for await (const document of response.docs) {
+                const posts = await getDocs(sortedFeedRef);
+                for await (const document of posts.docs) {
                     const nameRef = doc(db, 'usernames', document._document.data.value.mapValue.fields.createdBy.stringValue);
                     const name = await getDoc(nameRef);
                     document._document.data.value.mapValue.fields.createdBy.stringValue = 
@@ -30,7 +31,7 @@ export default function Main() {
                         }
                     }
                 }
-                setData(response.docs);
+                setData(posts.docs);
             } catch (err) {
                 console.error(err);
             }
@@ -43,9 +44,8 @@ export default function Main() {
     if (data) {
         return <main id='feed-container'>
             {data.map(doc => {
-                const fields = doc._document.data.value.mapValue.fields;
-                const replies = doc._document.replies;
-                return <Posts fields={fields} replies={replies} key={doc.id} id={doc.id} />;
+                return <Posts fields={doc._document.data.value.mapValue.fields} 
+                replies={doc._document.replies} key={doc.id} id={doc.id} />;
         })}
         </main>;
     }

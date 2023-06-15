@@ -52,17 +52,20 @@
 }
 
 .description {
-    padding: .75rem 1rem;
+    padding: .5rem 1rem;
     font-size: .875rem;
 }
 
 .replies {
+    font-size: .875rem;
     padding: 0 1rem;
+    display: flex;
+    flex-direction: column;
 }
 
 .reply-button {
     align-self: center;
-    padding-bottom: .75rem;
+    padding: .5rem 0;
     color: blue;
     font-size: .8125rem;
 }
@@ -75,6 +78,7 @@
     display: flex;
     gap: .5rem;
     align-items: center;
+    padding: .5rem 1rem 0;
 }
 
 .post-reply-container > input {
@@ -85,6 +89,18 @@
     padding: 0 .5rem;
 }
 
-.reply-container {
+.date {
+    font-size: .6875rem;
+    color: rgb(53, 52, 52);
+}
 
+.delete-button {
+    color: blue;
+    cursor: pointer;
+    margin-left: auto;
+    font-size: .8125rem;
+}
+
+.reply {
+    display: flex;
 }
