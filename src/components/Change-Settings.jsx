@@ -18,7 +18,9 @@ export default function ChangeSettings() {
     }
 
     function uploadImage(e) {
-        if (e.target.files[0]) {
+        if (e.target.files[0] && e.target.files[0].size > 3000000) {
+            alert('Image too big. Max size 3mb');
+        } else if (e.target.files[0]) {
             const newPicture = URL.createObjectURL(e.target.files[0]);
             setImage(newPicture);
         }

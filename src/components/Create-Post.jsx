@@ -17,7 +17,9 @@ export default function CreatePost() {
     };
 
     function uploadImage(e) {
-        if (e.target.files[0]) {
+        if (e.target.files[0] && e.target.files[0].size > 3000000) {
+            alert('Image too big to upload');
+        } else if (e.target.files[0]) {
             const newPicture = URL.createObjectURL(e.target.files[0]);
             setImage(newPicture);
         }
@@ -51,7 +53,7 @@ export default function CreatePost() {
     return <main id='create-post-container'>
         <div id='create-post-box'>
             <div id='upload-image-container' className={image ? '' : 'inactive'} onClick={clickInput}>
-                {!image ? <output>Add image to post</output> : <img id='preview' src={image} />}
+                {!image ? <output>Add image to post (max size: 3 Mb)</output> : <img id='preview' src={image} />}
             </div>
             <input ref={inputElement} onChange={uploadImage} style={{display: 'none'}} 
             type="file" accept="image/jpg, image/jpeg, image/png, image/webp" />
