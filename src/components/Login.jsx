@@ -3,11 +3,12 @@ import { auth, googleProvider } from '../firebaseConfig';
 import { signInWithPopup, signInWithEmailAndPassword, 
 createUserWithEmailAndPassword, updateProfile, getAdditionalUserInfo } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { useNavigate } from 'react-router-dom';
 import Signin from './Signin';
 import Create from './Create-Account';
 import BlankPic from '../assets/blank-profile-picture.webp';
-import { db } from '../firebaseConfig';
+import { db, storage } from '../firebaseConfig';
 
 export default function Login() {
     const [email, setEmail] = useState('');
@@ -53,8 +54,12 @@ export default function Login() {
             setLoading(true);
             try {
                 await createUserWithEmailAndPassword(auth, email, password);
+                const blob = await fetch(BlankPic).then(r => r.blob());
+                const pfpRef = ref(storage, `images/pfps/${auth.currentUser.uid}`);
+                const pfpUpload = await uploadBytes(pfpRef, blob);
+                const newPfp = await getDownloadURL(pfpUpload.ref);
                 await updateProfile(auth.currentUser, {
-                    displayName: displayName, photoURL: BlankPic
+                    displayName: displayName, photoURL: newPfp
                 });
                 const nameRef = doc(db, 'usernames', auth.currentUser.uid);
                 await setDoc(nameRef, {
