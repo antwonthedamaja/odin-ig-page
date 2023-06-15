@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import { db, auth } from '../firebaseConfig';
-import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
+import { doc, setDoc, serverTimestamp, deleteDoc } from 'firebase/firestore';
 import { v1 } from 'uuid';
 import Reply from './Reply';
 import { useNavigate } from 'react-router-dom';
@@ -20,7 +20,6 @@ export default function Posts(props) {
             await setDoc(replyRef, {
                 reply: reply,
                 createdBy: auth.currentUser.uid,
-                pfpURL: auth.currentUser.photoURL,
                 createdAt: serverTimestamp()
             });
         } catch (err) {
@@ -32,11 +31,26 @@ export default function Posts(props) {
         navigate('/main/redirect'), { replace: true };
     }
 
+    async function deletePost() {
+        if (auth.currentUser.uid === props.fields.createdBy.stringValue) {
+            try {
+                await deleteDoc(doc(db, 'posts', props.id));
+            } catch (err) {
+                console.error(err);
+                alert('Post failed to delete');
+            }
+            alert('Post successfully deleted');
+            navigate('/main/redirect'), { replace: true };
+        }
+    }
+
     return <div className='post'>
         <div className='name-container'>
             <img src={props.fields.pfpURL.stringValue} />
-            <span><b>{props.fields.createdBy.stringValue}</b></span>
+            <span><b>{props.fields.createdByDisplayName}</b></span>
             <span>{props.fields.createdAt.timestampValue.slice(0, 10)}</span>
+            {auth.currentUser.uid === props.fields.createdBy.stringValue ? <div className='delete-button' 
+            onClick={deletePost}><u>Delete post?</u></div> : null}
         </div>
         <div className='img-container'>
             <div className="white-mask">
@@ -44,9 +58,10 @@ export default function Posts(props) {
             </div>
         </div>
         <div className='description'>
-            <b>{props.fields.createdBy.stringValue + ' '}</b>{props.fields.text.stringValue + ' '}
+            <b>{props.fields.createdByDisplayName + ' '}</b>{props.fields.text.stringValue + ' '}
             <span className='date'>{' ' + props.fields.createdAt.timestampValue.slice(0, 10)}</span>
         </div>
+
         {state ? <>
             <div className='replies'>
                 {props.replies.map(reply => {

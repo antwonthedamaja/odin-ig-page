@@ -16,7 +16,7 @@ export default function Main() {
                 for await (const document of posts.docs) {
                     const nameRef = doc(db, 'usernames', document._document.data.value.mapValue.fields.createdBy.stringValue);
                     const name = await getDoc(nameRef);
-                    document._document.data.value.mapValue.fields.createdBy.stringValue = 
+                    document._document.data.value.mapValue.fields.createdByDisplayName = 
                     name._document.data.value.mapValue.fields.name.stringValue;
                     const subColRef = collection(db, 'posts', document.id, 'replies');
                     const sortedSubColRef = query(subColRef, orderBy('createdAt', 'desc'));

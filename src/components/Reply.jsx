@@ -13,6 +13,7 @@ export default function Reply(props) {
                 await deleteDoc(doc(db, `posts/${props.docid}/replies`, props.replyid));
             } catch (err) {
                 console.error(err);
+                alert('Reply failed to delete');
             }
             alert('Reply deleted successfully');
             navigate('/main/redirect'), { replace: true };
