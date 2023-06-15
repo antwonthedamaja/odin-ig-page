@@ -2,6 +2,8 @@
 import React, { useState } from 'react';
 import { db, auth } from '../firebaseConfig';
 import { doc, setDoc, serverTimestamp, deleteDoc } from 'firebase/firestore';
+import { storage } from '../firebaseConfig';
+import { ref, deleteObject } from 'firebase/storage';
 import { v1 } from 'uuid';
 import Reply from './Reply';
 import { useNavigate } from 'react-router-dom';
@@ -35,6 +37,11 @@ export default function Posts(props) {
         if (auth.currentUser.uid === props.fields.createdBy.stringValue) {
             try {
                 await deleteDoc(doc(db, 'posts', props.id));
+                for await (const replyRef of props.replies) {
+                    await deleteDoc(doc(db, `posts/${props.id}/replies`, replyRef.id));
+                }
+                const imageRef = ref(storage, `images/posts/${props.id}`);
+                await deleteObject(imageRef);
             } catch (err) {
                 console.error(err);
                 alert('Post failed to delete');
