@@ -39,7 +39,7 @@ export default function Main() {
 
         getData();
 
-    }, []);
+    });
 
     if (data) {
         return <main id='feed-container'>

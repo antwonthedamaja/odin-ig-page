@@ -77,7 +77,7 @@ export default function Posts(props) {
                 })}
             </div>
             <div className='post-reply-container'>
-                <img src={props.fields.pfpURL.stringValue} />
+                <img src={auth.currentUser.photoURL} />
                 <input type='text' placeholder='Comment' maxLength='250' onChange={(e) => setReply(e.target.value)} />
                 <button disabled={loading} onClick={submitReply}>Post</button>
             </div>
